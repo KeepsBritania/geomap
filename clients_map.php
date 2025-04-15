@@ -169,16 +169,28 @@ hidden;
   }
 
   function splashComplete() {
-    sessionStorage.setItem('splashShown', 'true');
-    gsap.to("#splash", {
-      opacity: 0,
-      duration: 1,
-      onComplete: () => {
-        document.getElementById('splash').style.display = 'none';
+  sessionStorage.setItem('splashShown', 'true');
+
+  gsap.to("#splash", {
+    opacity: 0,
+    duration: 1,
+    onComplete: () => {
+      document.getElementById('splash').style.display = 'none';
+
+      if (typeof google === 'object' && typeof google.maps === 'object') {
         initMap();
+      } else {
+        // Wait until Google Maps is fully loaded
+        const interval = setInterval(() => {
+          if (typeof google === 'object' && typeof google.maps === 'object') {
+            clearInterval(interval);
+            initMap();
+          }
+        }, 100);
       }
-    });
-  }
+    }
+  });
+}
 
   let map;
   let markersArray = []; // Store all markers for future updates
