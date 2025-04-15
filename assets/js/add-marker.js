@@ -208,6 +208,6 @@ function deleteMarker(id) {
 }
 
 function editMarker(id, address) {
-    window.location.href = `index.php?address=${encodeURIComponent(address)}&edit=${id}`;
+    window.location.href = `clients_map.php?address=${encodeURIComponent(address)}&edit=${id}`;
 }
 </script>
